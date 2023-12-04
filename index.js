@@ -52,7 +52,7 @@ async function run() {
 
 
     // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
+    client.connect();
 
     const usersCollection = client.db("foodvillage").collection("users");
     const menuItemsCollection = client.db("foodvillage").collection("menu");
@@ -228,10 +228,7 @@ async function run() {
     app.get('/payment-history',verifyJWT, async(req,res)=>{
       const email = req.query.email;
 
-      const decoded = req.decoded.email;
-      if(email != decoded) {
-        return res.status(403).send({ error: true, message: 'forbidden access' })
-      }
+      
 
       const query = {email : email};
 
@@ -349,3 +346,7 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`FoodVillage Server Is running on ${port}`);
 })
+
+
+
+            
