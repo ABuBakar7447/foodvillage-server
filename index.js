@@ -225,8 +225,14 @@ async function run() {
 
 
     //Get payemnt data
-    app.get('/payment-history', async(req,res)=>{
+    app.get('/payment-history',verifyJWT, async(req,res)=>{
       const email = req.query.email;
+
+      const decoded = req.decoded.email;
+      if(email != decoded) {
+        return res.status(403).send({ error: true, message: 'forbidden access' })
+      }
+
       const query = {email : email};
 
       const result = await paymentCollection.find(query).toArray();
