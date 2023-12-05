@@ -5,11 +5,14 @@ const jwt = require('jsonwebtoken');
 
 require('dotenv').config()
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
-const port = process.env.PORT || 5000;
+
 
 
 app.use(cors());
 app.use(express.json());
+
+
+const port = process.env.PORT || 5000;
 
 const verifyJWT = (req, res, next) => {
   const authorization = req.headers.authorization;
